@@ -98,6 +98,13 @@ if (!$fila) {
       padding: 0;
     }
 
+    .logout-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 10px;
+    }
+
     #logout {
       float: right;
     }
@@ -115,10 +122,12 @@ if (!$fila) {
 </head>
 
 <body>
-  <div id="logout">
-    <?php if (isset($_SESSION['usuario'])) : ?>
-      <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
-    <?php endif; ?>
+  <div class="logout-container">
+    <div id="logout">
+      <?php if (isset($_SESSION['usuario'])) : ?>
+        <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+      <?php endif; ?>
+    </div>
   </div>
   <div class="container mt-5">
     <h2 class="text-center">Informacion de Usuario</h2>
@@ -155,14 +164,59 @@ if (!$fila) {
             <label for="banco">Banco:</label>
             <p class="form-control-static" id="banco"><?php echo $fila['banco']; ?></p>
           </div>
+          <form id="pausarMembresiaForm" method="get">
+            <div class="form-group">
+              <label for="pausarMembresia">Pausar Membresía:</label>
+              <select class="form-control" id="pausarMembresia" name="pausarMembresia">
+                <option value="2">2 meses</option>
+                <option value="3">3 meses</option>
+                <option value="4">4 meses</option>
+                <option value="5">5 meses</option>
+                <option value="6">6 meses</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Pausar</button>
+          </form>
         </div>
     </div>
   </div>
+
 <?php endif; ?>
 <!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#pausarMembresiaForm").submit(function(event) {
+      event.preventDefault(); // Prevenir el envío del formulario por defecto
+
+      var selectValue = $("#pausarMembresia").val();
+      console.log("Valor seleccionado:", selectValue);
+
+      // Envía el valor seleccionado al servidor mediante una solicitud HTTP utilizando jQuery
+      $.ajax({
+        url: "templates/pausarfecha.php",
+        method: "get",
+        data: {
+          pausarMembresia: selectValue
+        },
+        success: function(data) {
+          
+          console.log(data);
+          
+          if (data.success) {
+            location.reload();
+        }
+        },
+        error: function(xhr, status, error) {
+          console.error("Error:", error);
+        }
+      });
+    });
+  });
+</script>
 </body>
 
 </html>

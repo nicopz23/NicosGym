@@ -51,7 +51,7 @@ if (isset($_POST["usuario"])) {
 
         if ($rowCount > 0) {
             // La inserción fue exitosa, muestra el mensaje
-            header("Location: ./");
+            header("Location: adm.php");
             exit();
         } else {
             // La inserción falló, muestra un mensaje de error si es necesario
