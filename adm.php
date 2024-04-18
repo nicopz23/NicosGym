@@ -35,9 +35,12 @@ if (isset($_SESSION["usuario"])) {
 
 <style>
     body {
-    background: linear-gradient(to right, #7fb3d5, #85a2b6); /* Degradado de colores más suaves */
-    color: #333; /* Color del texto oscuro para contrastar */
-}
+        background: linear-gradient(to right, #7fb3d5, #85a2b6);
+        /* Degradado de colores más suaves */
+        color: #333;
+        /* Color del texto oscuro para contrastar */
+    }
+
     .action-buttons {
         position: fixed;
         top: 50%;
@@ -49,26 +52,54 @@ if (isset($_SESSION["usuario"])) {
         margin-bottom: 50px;
         display: block;
     }
+
     table {
-            width: 100%; /* Ancho completo */
-            border-collapse: collapse; /* Para asegurar que los bordes se colapsen */
-            background-color: #ffffff; /* Fondo blanco */
-        }
+        width: 100%;
+        /* Ancho completo */
+        border-collapse: collapse;
+        /* Para asegurar que los bordes se colapsen */
+        background-color: #ffffff;
+        /* Fondo blanco */
+    }
 
-        th, td {
-            border: 1px solid black; /* Borde de 1px de ancho y color negro */
-            padding: 8px; /* Espaciado interno para contenido */
-        }
+    th,
+    td {
+        border: 1px solid black;
+        /* Borde de 1px de ancho y color negro */
+        padding: 8px;
+        /* Espaciado interno para contenido */
+    }
 
-        /* Estilo para el encabezado de la tabla */
-        th {
-            background-color: #7fb3d5; /* Color de fondo gris claro */
-            color: black; /* Color del texto */
-        }
+    /* Estilo para el encabezado de la tabla */
+    th {
+        background-color: #404040;
+        /* Color de fondo gris claro */
+        color: white;
+        /* Color del texto */
+    }
+
+    #logout {
+        float: right;
+    }
+
+    #logout a {
+        color: white;
+        text-decoration: none;
+        /* Para quitar el subrayado predeterminado */
+    }
+
+    #logout a:visited {
+        color: maroon;
+    }
 </style>
 </head>
 
 <body>
+    <div id="logout">
+        <?php if (isset($_SESSION['usuario'])) : ?>
+            <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+        <?php endif; ?>
+    </div>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8">
@@ -92,9 +123,9 @@ if (isset($_SESSION["usuario"])) {
                         $resultado = $conn->query($sql);
 
                         // Verificar si hay resultados
-                        if ($resultado-> rowCount() > 0) {
+                        if ($resultado->rowCount() > 0) {
                             // Si hay resultados, iterar sobre cada fila y mostrar los datos en la tabla
-                            while ($fila = $resultado-> fetch(PDO::FETCH_ASSOC)) {
+                            while ($fila = $resultado->fetch(PDO::FETCH_ASSOC)) {
                                 echo "<tr>";
                                 echo "<td>" . $fila["idusuarios"] . "</td>";
                                 echo "<td>" . $fila["nombre"] . "</td>";

@@ -18,6 +18,8 @@ if (isset($_POST["usuario"])) {
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $idrol = $row['idrol'];
+        $id_usuario = $row['idusuarios'];
+        $_SESSION["idusuario"] = $id_usuario;
         $_SESSION["usuario"] = $usuario;
         $_SESSION["idrol"] = $idrol;
 
@@ -44,7 +46,8 @@ include "./templates/header.php";
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block">
-                            <img src="assets//img/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            <img src="assets/img/gym.webp" alt="login form" class="img-fluid h-100 w-10" style="border-radius: 1rem 0 0 1rem;" />
+
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">

@@ -68,7 +68,11 @@ if (isset($_POST["usuario"])) {
 <?php
 include "./templates/header.php";
 ?>
-
+<div id="logout">
+    <?php if (isset($_SESSION['usuario'])) : ?>
+        <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+    <?php endif; ?>
+</div>
 <section class="vh-100" style="background: linear-gradient(to right, #7fb3d5, #85a2b6);">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -76,7 +80,7 @@ include "./templates/header.php";
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block">
-                            <img src="assets//img/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            <img src="assets/img/gym.webp" alt="login form" class="img-fluid h-100 w-auto" style="border-radius: 1rem 0 0 1rem;" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
@@ -84,8 +88,8 @@ include "./templates/header.php";
                                 <form action="" method="post">
 
                                     <div class="d-flex align-items-center mb-3 pb-1">
-                                        <i class="fa-solid fa-dumbbell" style="font-size: 30px;" ></i>
-                                        <span class="h1 fw-bold mb-0">  NicosGym</span>
+                                        <i class="fa-solid fa-dumbbell" style="font-size: 30px;"></i>
+                                        <span class="h1 fw-bold mb-0"> NicosGym</span>
                                     </div>
 
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Registrate</h5>

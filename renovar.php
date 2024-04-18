@@ -22,47 +22,34 @@ if (isset($_SESSION["usuario"])) {
     exit();
 }
 
-if (isset($_POST["nombre"])) {
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_usuario = $_POST["id"];
-    include "conexion.php";
+    $nombre = $_POST["nombre"];
+    $fecha_inicio = $_POST["fecha_inicio"];
+    $fecha_final = $_POST["fecha_final"];
+    $plazo = $_POST["plazo"];
 
-    try {
-        $sql_banco = "Select * from usuarios where idusuarios= ?";
-        $stm_banco = $conn->prepare($sql_banco);
-        $stm_banco->bindParam(1, $id_usuario);
-        $stm_banco->execute();
-        $fila = $stm_banco->fetch(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        $error = "No se ha podido encontrar al usuario";
-    }
+    include 'conexion.php';
 
+    $nueva_fecha_final = date("Y-m-d H:i:s", strtotime($fecha_final . " + $plazo months"));
+    var_dump($nueva_fecha_final);
+    $sql = "UPDATE usuarios SET fecha_final = ? WHERE idusuarios = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $nueva_fecha_final);
+    $stmt->bindParam(2, $id_usuario);
+    $stmt->execute();
 
-    try {
-        $sql = "DELETE from usuarios where idusuarios = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $id_usuario);
-        $stmt->execute();
-
-        $sql_borrar = "delete from cuenta_banco where idcuenta_banco = ?";
-        $stmt_borrar = $conn->prepare($sql_borrar);
-        $stmt_borrar->bindParam(1, $fila['idcuenta_banco']);
-        $stmt_borrar->execute();
-
-        $rowCount = $stmt->rowCount(); // Obtiene el número de filas afectadas por la última operación
-        $rowCountbanco = $stmt_borrar->rowCount();
-        if ($rowCountbanco > 0 && $rowCount > 0) {
-            // La inserción fue exitosa, muestra el mensaje
-            header("Location: adm.php");
-            exit();
-        } else {
-            // La inserción falló, muestra un mensaje de error si es necesario
-            $error = "No se ha podido eliminar el usuario";
-        }
-    } catch (PDOException $e) {
-        $error = "No se ha podido eliminar";
+    // Verifica si la consulta se ejecutó correctamente
+    if ($stmt->rowCount() > 0) {
+        // La actualización fue exitosa, puedes redirigir a alguna página o mostrar un mensaje de éxito
+        header("Location: adm.php");
+        exit();
+    } else {
+        // La actualización falló, muestra un mensaje de error si es necesario
+        $error = "No se ha podido actualizar la fecha final";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +57,7 @@ if (isset($_POST["nombre"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar</title>
+    <title>Renovar Fecha</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -101,8 +88,8 @@ if (isset($_POST["nombre"])) {
 
     #nombre,
     #contraseña,
-    #num_banco,
-    #banco {
+    #fecha_inicio,
+    #fecha_final {
         max-width: 250px;
         /* Ancho máximo para el resto de inputs */
     }
@@ -133,29 +120,34 @@ if (isset($_POST["nombre"])) {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body form-container">
-                        <h2 class="card-title text-center">Eliminar usuario</h2>
+                        <h2 class="card-title text-center">Editar usuario</h2>
                         <form method="post">
                             <div class="form-group">
                                 <label for="id">ID:</label>
-                                <input type="text" class="form-control" id="id" name="id" onkeyup="buscarUsuario()">
+                                <input type="text" class="form-control" id="id" name="id" onkeyup="buscarUsuario()" maxlength="10">
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre">
+                                <input type="text" class="form-control" id="nombre" name="nombre" maxlength="50" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="contraseña">Contraseña:</label>
-                                <input type="password" class="form-control" id="contraseña" name="contraseña">
+                                <label for="fecha_inicio">Fecha de Inicio:</label>
+                                <input type="datetime" class="form-control" id="fecha_inicio" name="fecha_inicio" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="num_banco">Número de Banco:</label>
-                                <input type="text" class="form-control" id="num_banco" name="num_banco">
+                                <label for="fecha_final">Fecha de Finalización:</label>
+                                <input type="datetime" class="form-control" id="fecha_final" name="fecha_final" maxlength="15" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="banco">Banco:</label>
-                                <input type="text" class="form-control" id="banco" name="banco">
+                                <label for="plazo">Plazo:</label>
+                                <select class="form-control" id="plazo" name="plazo">
+                                    <option value="3">3 meses</option>
+                                    <option value="6">6 meses</option>
+                                    <option value="9">9 meses</option>
+                                    <option value="12">12 meses</option>
+                                </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
                     </div>
                 </div>

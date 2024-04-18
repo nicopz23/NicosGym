@@ -13,6 +13,8 @@ function buscarUsuario() {
             $('#contraseña').val(response.contraseña);
             $('#num_banco').val(response.numero);
             $('#banco').val(response.banco);
+            $('#fecha_inicio').val(response.fecha_inicio);
+            $('#fecha_final').val(response.fecha_final)
         },
         error: function () {
             // Mostrar mensaje de error si no se encuentra el usuario

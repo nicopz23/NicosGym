@@ -28,7 +28,7 @@ if (isset($_POST["nombre"])) {
     $banco = $_POST["num_banco"];
     $numero = $_POST["banco"];
     include "conexion.php";
-    
+
     try {
         $sql_banco = "UPDATE usuarios u JOIN cuenta_banco cb ON u.idcuenta_banco = cb.idcuenta_banco
         SET u.nombre = ?, 
@@ -43,7 +43,7 @@ if (isset($_POST["nombre"])) {
         $stmt_banco->bindParam(4, $banco);
         $stmt_banco->bindParam(5, $id_usuario);
         $stmt_banco->execute();
-        
+
         $rowCount = $stmt_banco->rowCount(); // Obtiene el número de filas afectadas por la última operación
         var_dump($rowCount);
         if ($rowCount > 0) {
@@ -62,38 +62,102 @@ if (isset($_POST["nombre"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    body {
+        background: linear-gradient(to right, #7fb3d5, #85a2b6);
+        /* Degradado de colores más suaves */
+        color: #333;
+        /* Color del texto oscuro para contrastar */
+
+    }
+
+    .form-container {
+        background-color: #404040;
+        /* Gris oscuro */
+        color: white;
+        /* Texto blanco para contrastar */
+    }
+
+    .form-control {
+        max-width: 500px;
+
+    }
+
+    #id {
+        max-width: 100px;
+        /* Ancho máximo para el input de ID */
+    }
+
+    #nombre,
+    #contraseña,
+    #num_banco,
+    #banco {
+        max-width: 250px;
+        /* Ancho máximo para el resto de inputs */
+    }
+
+    #logout {
+        float: right;
+    }
+
+    #logout a {
+        color: white;
+        text-decoration: none;
+        /* Para quitar el subrayado predeterminado */
+    }
+
+    #logout a:visited {
+        color: maroon;
+    }
+</style>
+
 <body>
+    <div id="logout">
+        <?php if (isset($_SESSION['usuario'])) : ?>
+            <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+        <?php endif; ?>
+    </div>
     <div class="container mt-5">
-        <h2>Editar usuario</h2>
-        <form method="post">
-            <div class="form-group">
-                <label for="id">ID:</label>
-                <input  type="text" class="form-control" id="id" name="id" onkeyup="buscarUsuario()">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body form-container">
+                        <h2 class="card-title text-center">Editar usuario</h2>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="id">ID:</label>
+                                <input type="text" class="form-control" id="id" name="id" onkeyup="buscarUsuario()" maxlength="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña:</label>
+                                <input type="password" class="form-control" id="contraseña" name="contraseña">
+                            </div>
+                            <div class="form-group">
+                                <label for="num_banco">Número de Banco:</label>
+                                <input type="text" class="form-control" id="num_banco" name="num_banco" maxlength="15">
+                            </div>
+                            <div class="form-group">
+                                <label for="banco">Banco:</label>
+                                <input type="text" class="form-control" id="banco" name="banco" maxlength="50">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                            <a href="renovar.php" class="btn btn-secondary">Renovar Fecha</a>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre">
-            </div>
-            <div class="form-group">
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña">
-            </div>
-            <div class="form-group">
-                <label for="num_banco">Número de Banco:</label>
-                <input type="text" class="form-control" id="num_banco" name="num_banco">
-            </div>
-            <div class="form-group">
-                <label for="banco">Banco:</label>
-                <input type="text" class="form-control" id="banco" name="banco" >
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+        </div>
     </div>
 
     <!-- Bootstrap JS (opcional, para funcionalidades adicionales) -->
@@ -102,4 +166,5 @@ if (isset($_POST["nombre"])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="assets/js/editar.js"></script>
 </body>
+
 </html>

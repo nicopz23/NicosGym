@@ -12,9 +12,9 @@ try {
 
     // Establecer el modo de error de PDO a excepción
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-   // Obtener los valores del formulario (suponiendo que se ha enviado por método POST)
-   /*if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Obtener los valores del formulario (suponiendo que se ha enviado por método POST)
+    /*if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $passwordl = $_POST["password"];
 
@@ -33,8 +33,7 @@ try {
         // Usuario no encontrado o contraseña incorrecta
         echo "Credenciales incorrectas";
     }*/
-} catch(PDOException $e) {
-   
+} catch (PDOException $e) {
+
     die("Error de conexión: " . $e->getMessage());
 }
-
