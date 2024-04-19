@@ -91,13 +91,26 @@ if (isset($_SESSION["usuario"])) {
     #logout a:visited {
         color: maroon;
     }
+    @media (max-width: 768px) {
+    .action-buttons {
+        display: block; /* Mostrar los botones en dispositivos móviles */
+        position: fixed;
+        top: 50%;
+        right: 10px; /* Ajustar la posición de los botones */
+        transform: translateY(-50%);
+    }
+
+    .action-buttons .btn {
+        margin-bottom: 10px; /* Reducir el espacio entre botones */
+    }
+}
 </style>
 </head>
 
 <body>
     <div id="logout">
         <?php if (isset($_SESSION['usuario'])) : ?>
-            <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+            <p style="color: maroon;position: relative;position: relative;bottom: 42px;right: 8px;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
         <?php endif; ?>
     </div>
     <div class="container mt-5">

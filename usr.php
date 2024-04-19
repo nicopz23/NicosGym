@@ -42,14 +42,6 @@ $stmt->bindParam(1, $id_usuario);
 $stmt->execute();
 $fila = $stmt->fetch(PDO::FETCH_ASSOC);
 
-/*$fila = array(
-  'idusuario' => 'valor_predeterminado',
-  'nombre' => 'valor_predeterminado',
-  'fecha_inicio' => 'valor_predeterminado',
-  'fecha_final' => 'valor_predeterminado',
-  'numero' => 'valor_predeterminado',
-  'banco' => 'valor_predeterminado'
-);*/
 if (!$fila) {
   $mensaje_predeterminado = "No se encontraron datos para este usuario.";
 }
@@ -125,7 +117,7 @@ if (!$fila) {
   <div class="logout-container">
     <div id="logout">
       <?php if (isset($_SESSION['usuario'])) : ?>
-        <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+        <p style="color: maroon;position: relative;position: relative;bottom: 42px;right: 8px;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
       <?php endif; ?>
     </div>
   </div>
@@ -205,7 +197,7 @@ if (!$fila) {
         success: function(data) {
           
           console.log(data);
-          
+
           if (data.success) {
             location.reload();
         }

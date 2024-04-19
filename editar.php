@@ -116,12 +116,28 @@ if (isset($_POST["nombre"])) {
     #logout a:visited {
         color: maroon;
     }
+
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 10px;
+            margin-left: 35px;
+            margin-top: 50px;
+            position: fixed;
+            /* Reducir el espacio alrededor del formulario */
+        }
+
+        .form-control {
+            max-width: 100%;
+            /* Hacer que los inputs ocupen todo el ancho */
+
+        }
+    }
 </style>
 
 <body>
     <div id="logout">
         <?php if (isset($_SESSION['usuario'])) : ?>
-            <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+            <p style="color: maroon;position: relative;position: relative;bottom: 42px;right: 8px;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
         <?php endif; ?>
     </div>
     <div class="container mt-5">

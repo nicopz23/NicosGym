@@ -70,7 +70,7 @@ include "./templates/header.php";
 ?>
 <div id="logout">
     <?php if (isset($_SESSION['usuario'])) : ?>
-        <p style="color: maroon;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+        <p style="color: maroon;position: relative;position: relative;right: 8px;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
     <?php endif; ?>
 </div>
 <section class="vh-100" style="background: linear-gradient(to right, #7fb3d5, #85a2b6);">
