@@ -120,10 +120,10 @@ if (isset($_SESSION["usuario"])) {
                 <table class="">
                     <thead class="">
                         <tr>
-                            <th>ID</th>
+                            <th>ID de usuario</th>
                             <th>Nombre</th>
-                            <th>Fecha Inicial</th>
-                            <th>Fecha Final</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Fecha Finalización</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -156,9 +156,9 @@ if (isset($_SESSION["usuario"])) {
             </div>
             <div class="col-md-4">
                 <div class="action-buttons">
-                    <a href="register.php" class="btn btn-info">Crear</a>
-                    <a href="editar.php" class="btn btn-info">Editar</a>
-                    <a href="eliminar.php" class="btn btn-info">Eliminar</a>
+                    <a href="register.php" class="btn btn-info">Añadir usuario</a>
+                    <a href="editar.php" class="btn btn-info">Editar usuario</a>
+                    <a href="eliminar.php" class="btn btn-info">Eliminar usuario</a>
                 </div>
             </div>
         </div>

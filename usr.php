@@ -117,7 +117,7 @@ if (!$fila) {
   <div class="logout-container">
     <div id="logout">
       <?php if (isset($_SESSION['usuario'])) : ?>
-        <p style="color: maroon;position: relative;position: relative;bottom: 42px;right: 8px;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
+        <p style="color: maroon;position: relative;position: relative;right: 8px;"> Bienvenido, <?php echo $_SESSION['usuario']; ?> | <a href="logout.php">Cerrar sesión</a></p>
       <?php endif; ?>
     </div>
   </div>
@@ -131,7 +131,7 @@ if (!$fila) {
       <?php else : ?>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="id">ID:</label>
+            <label for="id">ID usuario:</label>
             <p class="form-control-static" id="id"><?php echo $fila['idusuarios']; ?></p>
           </div>
           <div class="form-group">

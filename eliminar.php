@@ -151,7 +151,7 @@ if (isset($_POST["nombre"])) {
                         <h2 class="card-title text-center">Eliminar usuario</h2>
                         <form method="post">
                             <div class="form-group">
-                                <label for="id">ID:</label>
+                                <label for="id">ID usuario:</label>
                                 <input type="text" class="form-control" id="id" name="id" onkeyup="buscarUsuario()">
                             </div>
                             <div class="form-group">
